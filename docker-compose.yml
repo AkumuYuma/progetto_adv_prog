@@ -1,0 +1,12 @@
+version: "3.6"
+
+services:
+  app:
+    image: akumuyuma/sfml-project:latest
+    build: .
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    network_mode: host
+
