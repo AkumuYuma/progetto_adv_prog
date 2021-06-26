@@ -1,7 +1,7 @@
 #ifndef VEICHLE_H
 #define VEICHLE_H
 
-#include "../randomTools/randomTools.h"
+#include "randomTools.h"
 
 // Classe veichle
 class Veichle {

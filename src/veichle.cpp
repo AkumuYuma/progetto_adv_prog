@@ -9,10 +9,10 @@
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/WindowStyle.hpp>
 
-#include "../randomTools/randomTools.h"
-#include "../utilities/utilities.h"
-#include "../vectorTools/vectorTools.h"
-#include "veichle.h"
+#include "../include/randomTools.h"
+#include "../include/utilities.h"
+#include "../include/vectorTools.h"
+#include "../include/veichle.h"
 
 using namespace vectorTools;
 using namespace utilities;

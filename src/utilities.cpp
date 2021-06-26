@@ -11,8 +11,8 @@
 #include <SFML/Window/WindowStyle.hpp>
 
 #include <memory.h>
-#include "utilities.h"
-#include "../randomTools/randomTools.h"
+#include "../include/utilities.h"
+#include "../include/randomTools.h"
 #include <cmath>
 #define _USE_MATH_DEFINES
 

@@ -18,10 +18,12 @@
 #include <vector>
 
 // Classe personale
-#include "librerie/veichle/veichle.h"
-#include "librerie/utilities/utilities.h"
+#include "../include/veichle.h"
+#include "../include/utilities.h"
 
 using namespace utilities;
+
+std::string percorso_font{"../font/arial.ttf"};
 
 int main() {
   // ---------------------------------- Operazioni preparatorie al main loop ------------------------------------- //
@@ -125,7 +127,7 @@ int main() {
 
     // Definisco il font per testo a schermo
     sf::Font font;
-    if (!font.loadFromFile("font/arial.ttf")) {
+    if (!font.loadFromFile(percorso_font)) {
       throw("Errore nel caricare il font");
     }
 

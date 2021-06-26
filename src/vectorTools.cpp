@@ -1,7 +1,7 @@
 // Operazioni utili sui vettori di float 2d della libreria sfml
 
 #include <SFML/System/Vector2.hpp>
-#include "vectorTools.h"
+#include "../include/vectorTools.h"
 // Includo libreria matematica
 #include <cmath>
 // Uso le costanti matematiche
