@@ -1,7 +1,6 @@
 FROM ubuntu:latest
 
 WORKDIR /app
-
 RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
     build-essential \
     wget \
@@ -23,7 +22,6 @@ RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
     graphviz \
     doxygen \
     cmake
-
 COPY . .
 RUN rm -rf ./build/*
 RUN cmake -B ./build/ && cd build/ && make
