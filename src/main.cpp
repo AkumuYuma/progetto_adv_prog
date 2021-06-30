@@ -26,23 +26,27 @@ using namespace utilities;
 std::string percorso_font{"../font/arial.ttf"};
 
 int main() {
+
+  // Variabili di ambiente
+  int veicoliIniziali{200}, ciboIniziale{300}, velenoIniziale{300};
+  float probNuovoCibo{0.1}, probNuovoVeleno{0.01}, probClonare{0.005};
   // ---------------------------------- Operazioni preparatorie al main loop ------------------------------------- //
 
   sf::RenderWindow finestra(sf::VideoMode(900, 900), "Evolution", sf::Style::Close | sf::Style::Titlebar);
 
   // Creo array di veicoli
   std::vector<std::unique_ptr<Veichle>> veicoli;
-  for (int i = 0; i < 100; ++i) {
+  for (int i = 0; i < veicoliIniziali; ++i) {
     veicoli.push_back(std::unique_ptr<Veichle>{new Veichle(300, 300)});
   }
 
   // Creo array di cibo e veleno
   std::vector<std::unique_ptr<sf::CircleShape>> cibi;
-  for (int i = 0; i < 300; ++i) {
+  for (int i = 0; i < ciboIniziale; ++i) {
     cibi.push_back(creaCibo(finestra, true));
   }
   std::vector<std::unique_ptr<sf::CircleShape>> veleno;
-  for (int i = 0; i < 300; ++i) {
+  for (int i = 0; i < velenoIniziale; ++i) {
     veleno.push_back(creaCibo(finestra, false));
   }
 
@@ -87,10 +91,10 @@ int main() {
 
     // Bassa probabilità di generare cibo o veleno in posizione random sullo
     // schermo
-    if (randomTools::randomFloat() < 0.08) {
+    if (randomTools::randomFloat() < probNuovoCibo) {
       cibi.push_back(creaCibo(finestra, true));
     }
-    if (randomTools::randomFloat() < 0.01) {
+    if (randomTools::randomFloat() < probNuovoVeleno) {
       veleno.push_back(creaCibo(finestra, false));
     }
 
@@ -108,7 +112,7 @@ int main() {
       (*i)->show(finestra);
 
       // Probabilià di clonare
-      if (randomTools::randomFloat() < 0.003) {
+      if (randomTools::randomFloat() < probClonare) {
         i = veicoli.insert(i, (*i)->clona());
         i++;
       }

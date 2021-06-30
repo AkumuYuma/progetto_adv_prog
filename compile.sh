@@ -5,6 +5,15 @@ if [[ $# != 1 ]]; then
     exit 1
 else
     echo "Compilo il progetto e linko le librerie"
-    /usr/bin/g++ -o $1 librerie/randomTools/randomTools.o librerie/utilities/utilities.o librerie/vectorTools/vectorTools.o librerie/veichle/veichle.o main.cpp -lsfml-graphics -lsfml-window -lsfml-system
+    cd src
+    for source in ./*; do
+        if [[ $source != "./main.cpp" ]]; then
+            echo "Compilo il file "$source
+            /usr/bin/g++ -c $source -o "../binari/"$source".o"
+        fi
+    done
+    echo "File compilati, linko le librerie sfml"
+    cd ..
+    /usr/bin/g++ -o ./binari/$1 ./binari/randomTools.cpp.o ./binari/utilities.cpp.o ./binari/vectorTools.cpp.o ./binari/veichle.cpp.o ./src/main.cpp -lsfml-graphics -lsfml-window -lsfml-system
     exit 0
 fi
