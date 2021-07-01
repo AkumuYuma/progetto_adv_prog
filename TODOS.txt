@@ -1,2 +1,0 @@
-Cose da fare:
-- In randomTools, usare un template per specificare il tipo anzichè usare due funzioni diverse
