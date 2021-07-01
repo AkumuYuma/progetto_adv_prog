@@ -21,6 +21,7 @@ Il workflow da eseguire per modificare l'app e ricompilarla è il seguente:
 TODO
 
 ## Commento del codice
+[Demo](media_readme/GIF_C++.gif)
 Commentiamo adesso brevemente le varie parti del codice. Per prima cosa si noti che il codice è stato diviso seguendo il paradigma di modularità di C++. Nella cartella src/ sono presenti i file sorgente con le definizioni di funzioni e classi
 mentre nella cartella include/ sono presenti gli header con le dichiarazioni.
 ### Librerie e utilities
