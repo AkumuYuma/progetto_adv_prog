@@ -146,10 +146,10 @@ Veichle::cercaVicino(std::vector<std::unique_ptr<sf::CircleShape>> &lista, float
   // Cerca l'oggetto più vicino nella lista passata e lo mangia.
   // :param: lista -> cibi o veleno
   // :param: valoreNutrizionale -> indica l'aumento o diminuzione della vita
-  // :param: percezione -> indica la distanza massima a cui il veicolo
-  // percepisce l'elemento della lista :return: vettore che indica la forza di
-  // attrazione verso l'elemento più vicino nella lista :return: vettore nullo
-  // se ha mangiato :return: vettore nullo se la lista è vuota
+  // :param: percezione -> indica la distanza massima a cui il veicolo percepisce l'elemento della lista
+  // :return: vettore che indica la forza di attrazione verso l'elemento più vicino nella lista
+  // :return: vettore nullo se ha mangiato
+  // :return: vettore nullo se la lista è vuota
 
   // Controllo che la lista non sia vuota
   if (lista.size() > 0) {
@@ -161,19 +161,25 @@ Veichle::cercaVicino(std::vector<std::unique_ptr<sf::CircleShape>> &lista, float
     for (auto it = lista.begin(); it != lista.end(); ++it) {
       float distanza = dist(triangolo.getPosition(), (*it)->getPosition());
 
-      if (distanza < velocitalimite) {
-        // Se mi trovo sull'oggetto, lo mangio e basta
-        lista.erase(it--);
-        health += valoreNutrizionale;
-      } else if (distanza < distanzaMinima) {
-        // Altrimenti aggiorno la distanza minima
-        closest = it;
-        distanzaMinima = distanza;
+      if (distanza > percezione) {
+          // Se sono fuori dalla percezione non aggiorno neanche
+          continue;
+      } else {
+          if (distanza < velocitalimite) {
+            // Se mi trovo sull'oggetto, lo mangio e basta
+            lista.erase(it--);
+            health += valoreNutrizionale;
+          } else if (distanza < distanzaMinima) {
+            // Altrimenti aggiorno la distanza minima
+            closest = it;
+            distanzaMinima = distanza;
+          }
+        }
       }
-    }
 
-    // Se sono dentro la visuale creo l'attrazione
-    if (distanzaMinima < percezione) {
+
+    // Se ho aggiornato almeno una volta, quindi ce n'è almeno uno dentro la visuale, allora lo cerco
+    if (distanzaMinima != 1e4) {
       sf::Vector2f posizioneVicino = (*closest)->getPosition();
       // Restituisco la forza di attrazione
       return seek(posizioneVicino);
@@ -216,8 +222,7 @@ std::unique_ptr<Veichle> Veichle::clona() {
     // Vario al massimo di un 10% ogni gene
     gene += randomFloat(-gene / 10, gene / 10);
   }
-  std::unique_ptr<Veichle> nuovoVeicolo{new Veichle{
-      triangolo.getPosition().x, triangolo.getPosition().y, nuovoDna}};
+  std::unique_ptr<Veichle> nuovoVeicolo{new Veichle{triangolo.getPosition().x, triangolo.getPosition().y, nuovoDna}};
   return nuovoVeicolo;
 }
 

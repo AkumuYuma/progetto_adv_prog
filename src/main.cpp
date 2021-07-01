@@ -30,6 +30,7 @@ int main() {
   // Variabili di ambiente
   int veicoliIniziali{200}, ciboIniziale{300}, velenoIniziale{300};
   float probNuovoCibo{0.1}, probNuovoVeleno{0.01}, probClonare{0.005};
+
   // ---------------------------------- Operazioni preparatorie al main loop ------------------------------------- //
 
   sf::RenderWindow finestra(sf::VideoMode(900, 900), "Evolution", sf::Style::Close | sf::Style::Titlebar);
@@ -50,8 +51,7 @@ int main() {
     veleno.push_back(creaCibo(finestra, false));
   }
 
-  // Nota: I puntatori sono necessari perché è necessario eliminare i gli
-  // oggetti dalle varie liste ed eliminarli dalla memoria. Se non usassi i
+  // Nota: I puntatori sono necessari perché è necessario eliminare i gli oggetti dalle varie liste ed eliminarli dalla memoria. Se non usassi i
   // puntatori non potrei usare le operazioni di insert ed erase sulla lista.
 
   // Inizio a misurare il tempo
@@ -62,8 +62,7 @@ int main() {
   // Conto i loop
   int loopCounter{0};
 
-  // ------------------------------------------------- Main loop
-  // ------------------------------------------------
+  // ------------------------------------------------- Main loop ------------------------------------------------
   while (finestra.isOpen()) {
 
     // Misuro il tempo a ogni loop
@@ -80,8 +79,7 @@ int main() {
         break;
 
       case sf::Event::KeyPressed:
-        // Se premo d sulla tastiera attivo o disattivo la debug mode dei
-        // veicoli
+        // Se premo d sulla tastiera attivo o disattivo la debug mode dei veicoli
         if (ev.key.code == sf::Keyboard::D) {
           Veichle::debug = !Veichle::debug;
         }
@@ -89,8 +87,7 @@ int main() {
       }
     }
 
-    // Bassa probabilità di generare cibo o veleno in posizione random sullo
-    // schermo
+    // Bassa probabilità di generare cibo o veleno in posizione random sullo schermo
     if (randomTools::randomFloat() < probNuovoCibo) {
       cibi.push_back(creaCibo(finestra, true));
     }
@@ -150,8 +147,7 @@ int main() {
       finito = true;
     }
     if (tempoFinale != "") {
-      finestra.draw(creaTesto(font, "They lived for: " + tempoFinale + "s", 15,
-                              sf::Vector2f{0, 110}));
+      finestra.draw(creaTesto(font, "They lived for: " + tempoFinale + "s", 15, sf::Vector2f{0, 110}));
     }
 
     // Disegno i cibi

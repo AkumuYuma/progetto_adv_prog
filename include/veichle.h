@@ -25,6 +25,11 @@ class Veichle {
       // "" Vita
       float health{1};
 
+      // Ciclo di vita
+      void applyForce(sf::Vector2f force);
+      sf::Vector2f seek(sf::Vector2f oggetto);
+      sf::Vector2f cercaVicino(std::vector<std::unique_ptr<sf::CircleShape>> &lista, float valoreNutrizionale, float percezione);
+
     public: // Costruttore
       Veichle(float x, float y, std::vector<float> newDna = std::vector<float>{});
       // Disegno
@@ -33,11 +38,8 @@ class Veichle {
       // Gestione uscita schermo
       void edges(sf::RenderWindow &finestra);
       // Ciclo di vita
-      void applyForce(sf::Vector2f force);
-      sf::Vector2f seek(sf::Vector2f oggetto);
-      bool dead();
-      sf::Vector2f cercaVicino(std::vector<std::unique_ptr<sf::CircleShape>> &lista, float valoreNutrizionale, float percezione);
       void vivi(std::vector<std::unique_ptr<sf::CircleShape>> &cibo, std::vector<std::unique_ptr<sf::CircleShape>> &veleno);
+      bool dead();
       // Riproduzione
       std::unique_ptr<Veichle> clona();
       // Getters
