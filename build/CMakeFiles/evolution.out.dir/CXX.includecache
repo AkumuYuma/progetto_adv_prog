@@ -10,6 +10,8 @@
 
 /home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/utilities.h
 
+/home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/vectorTools.h
+
 /home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/veichle.h
 randomTools.h
 /home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/randomTools.h
@@ -49,4 +51,34 @@ vector
 /home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/veichle.h
 ../include/utilities.h
 /home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/utilities.h
+
+/home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/src/veichle.cpp
+SFML/Graphics.hpp
+-
+SFML/Graphics/CircleShape.hpp
+-
+SFML/Graphics/Color.hpp
+-
+SFML/Graphics/RenderWindow.hpp
+-
+SFML/System/Vector2.hpp
+-
+SFML/Window/Event.hpp
+-
+SFML/Window/Keyboard.hpp
+-
+SFML/Window/Mouse.hpp
+-
+SFML/Window/VideoMode.hpp
+-
+SFML/Window/WindowStyle.hpp
+-
+../include/randomTools.h
+/home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/randomTools.h
+../include/utilities.h
+/home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/utilities.h
+../include/vectorTools.h
+/home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/vectorTools.h
+../include/veichle.h
+/home/emanuele/Scrivania/università/Magistrale/secondo_semestre/advanced_c++/progettoCorso/include/veichle.h
 
