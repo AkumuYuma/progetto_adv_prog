@@ -18,7 +18,35 @@ Il workflow da eseguire per modificare l'app e ricompilarla è il seguente:
 - Eseguire il binario generato.
 
 ### Metodo 2: Compilare ed eseguire nel docker
-TODO
+Nella cartella [container](container) sono disponibili tutti gli strumenti per buildare un docker container con tutte le dipendenze necessarie (su windows non è stato eseguito nessun test).
+
+#### Quickstart
+Eseguire il comando
+```bash
+sudo ./runContainer.sh
+```
+
+*ATTENZIONE:* Il processo di building può richiedere parecchio tempo. Alla fine dovrebbe partire direttamente l'interfaccia grafica con la simulazione running e pienamente funzionante.
+
+L'immagine docker, comunque, deve essre buildata direttamente sul sistema in cui va eseguito il codice in quanto è necessario aggiungere i permessi per l'accesso alla grafica del sistema operativo host (co xauth).
+
+Il seguente script produce il file xauth_list necessario ad avviare un'applicazione grafica dentro un docker, builda l'immagine e fa partire l'applicazione.
+
+```bash
+#!/bin/bash
+
+echo "Produco il file xauth_list"
+xauth list > xauth_list
+echo "File prodotto, faccio il build del docker"
+nome_immagine="progetto_cpp"
+docker build -t $nome_immagine .
+echo "Immagine buildata, faccio partire il docker"
+docker run --rm --net=host -e DISPLAY -v /tmp/.X11-unix $nome_immagine
+```
+Se tutta l'operazione va a buon fine, dopo la fine dell'esecuzione dello script, dovrebbe automaticamente partire l'eseguibile generato in una nuova finestra.
+
+L'immagine viene buildata utilizzando il Dockerfile, il quale copia i permessi dei display nel docker con l'utilizzo dello script `add_xauth.sh`
+
 
 ## Commento del codice
 ![Demo](media_readme/GIF_C++.gif)
