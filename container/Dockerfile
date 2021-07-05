@@ -1,6 +1,5 @@
 FROM ubuntu:latest
-
-WORKDIR /app
+# Installo le dipendenze
 RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
     build-essential \
     wget \
@@ -21,8 +20,18 @@ RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
     liblua5.2-0 \
     graphviz \
     doxygen \
-    cmake
+    cmake \
+    xauth
+# Configuro xauth
+COPY ./xauth_list /root/
+COPY ./add_xauth.sh /root/
+RUN /root/add_xauth.sh /root/xauth_list
+
+WORKDIR /app
+# Copio il progetto
 COPY . .
-RUN rm -rf ./build/*
-RUN cmake -B ./build/ && cd build/ && make
-CMD /app/build/evolution.out
+# Buildo
+RUN cmake -B ./build/ && cd ./build/ && make
+# Faccio partire il comando per il progetto
+WORKDIR /app/build
+CMD ./evolution.out
