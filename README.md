@@ -23,7 +23,7 @@ TODO
 ## Commento del codice
 ![Demo](media_readme/GIF_C++.gif)
 
-I cerchi rossi e verdi rappresentano la sensibilità rispettivametne a veleno e cibo, mentre le linee sono l'affinità (se negativa punteranno verso dietro). 
+I cerchi rossi e verdi rappresentano la sensibilità rispettivametne a veleno e cibo, mentre le linee sono l'affinità (se negativa punteranno verso dietro).
 
 Commentiamo adesso brevemente le varie parti del codice. Per prima cosa si noti che il codice è stato diviso seguendo il paradigma di modularità di C++. Nella cartella src/ sono presenti i file sorgente con le definizioni di funzioni e classi
 mentre nella cartella include/ sono presenti gli header con le dichiarazioni.
@@ -108,7 +108,7 @@ La funzione `creaTesto()`, invece, è solo una utility per ottenere un testo in 
 
 ### Classe veicolo
 
-Questa è la classe fondamentale del progetto, modellizza il veicolo e il suo comportamento. Commentiamo i metodi principali. 
+Questa è la classe fondamentale del progetto, modellizza il veicolo e il suo comportamento. Commentiamo i metodi principali.
 
 Per prima cosa vediamo il costruttore:
 
@@ -142,13 +142,13 @@ Veichle::Veichle(float x, float y, std::vector<float> newDna) {
 }
 ```
 Se il dna non viene passato viene inizializzato con valori random e successivamente si settano i parametri della figura. Importante notare che non ci sono
-inizializzazioni degli attributi nel costruttore, si è infatti scelto di inizializzare tutti gli attributi nella dichiarazione della classe. Questa scelta 
+inizializzazioni degli attributi nel costruttore, si è infatti scelto di inizializzare tutti gli attributi nella dichiarazione della classe. Questa scelta
 snellisce il costruttore e dunque sembra la più appropriata. Chiaramente a livello esecutivo non c'è nessuna differenza in quanto le inizializzazioni fatte inline
-nella dichiarazione vengono comunque eseguite prima del costruttore all'istanziazione di un nuovo oggetto della classe. 
+nella dichiarazione vengono comunque eseguite prima del costruttore all'istanziazione di un nuovo oggetto della classe.
 
 Il metodo `show()` semplicemente prende in ingresso la finestra su cui renderizzare e disegna la figura in base ai parametri specificati. In base al valore della
 variabile di debug mostra o no le informazioni su affinità e percezione. La variabile di debug è una variabile statica della classe e viene modificata
-direttametne dal main. 
+direttametne dal main.
 
 ```cpp
 void Veichle::update() {
@@ -176,24 +176,24 @@ void Veichle::update() {
 ```
 
 Il metodo `update()` deve essere chiamato ad ogni ciclo di esecuzione della simulazione e aggiorna lo stato del veicolo. La vita viene abbassata progressivamente
-e il colore varia linearmente dal verde al rosso al diminuire della vita. Sucessivamente la punta del veicolo viene ruotata nella direzione di movimento e si 
+e il colore varia linearmente dal verde al rosso al diminuire della vita. Sucessivamente la punta del veicolo viene ruotata nella direzione di movimento e si
 applica accelerazione e velocità per muovere il veicolo (si noti che `triangolo.move()` viene esposta da SFML e ha come effetto quello di sommare alla posizione
-della figura, il vettore velocità passato come argomento. Si noti che la velocità massima viene limitata per permettere un movimento più fluido e reazioni più 
-verosimili. 
+della figura, il vettore velocità passato come argomento. Si noti che la velocità massima viene limitata per permettere un movimento più fluido e reazioni più
+verosimili.
 
-L'algoritmo di ricerca del cibo (o veleno) è scritto nel metodo `seek()`. Restituisce una forza di attrazione tra il veicolo e l'oggetto. È necessario passare 
+L'algoritmo di ricerca del cibo (o veleno) è scritto nel metodo `seek()`. Restituisce una forza di attrazione tra il veicolo e l'oggetto. È necessario passare
 come parametro la posizione dell'oggetto. La velocità ideale è quella che punta verso l'oggetto. La forza generata è il vettore differenza tra la velocità attuale
-e la velocità ideale. In sostanza questo andrà a generare una rotazione fluida del veicolo verso l'oggetto da cercare. Anche in questo caso si deve limitare il 
-modulo del vettore forza per evitare reazioni troppo veloci e fuori controllo. 
+e la velocità ideale. In sostanza questo andrà a generare una rotazione fluida del veicolo verso l'oggetto da cercare. Anche in questo caso si deve limitare il
+modulo del vettore forza per evitare reazioni troppo veloci e fuori controllo.
 
-Vediamo il metodo `cercaVicino()`. 
+Vediamo il metodo `cercaVicino()`.
 ```cpp
 sf::Vector2f Veichle::cercaVicino(std::vector<std::unique_ptr<sf::CircleShape>> &lista, float valoreNutrizionale, float percezione) {
   // Cerca l'oggetto più vicino nella lista passata e lo mangia.
   // :param: lista -> cibi o veleno
   // :param: valoreNutrizionale -> indica l'aumento o diminuzione della vita
-  // :param: percezione -> indica la distanza massima a cui il veicolo percepisce l'elemento della lista 
-  // :return: vettore che indica la forza di attrazione verso l'elemento più vicino nella lista 
+  // :param: percezione -> indica la distanza massima a cui il veicolo percepisce l'elemento della lista
+  // :return: vettore che indica la forza di attrazione verso l'elemento più vicino nella lista
   // :return: vettore nullo se ha mangiato
   // :return: vettore nullo se la lista è vuota
 
@@ -206,9 +206,9 @@ sf::Vector2f Veichle::cercaVicino(std::vector<std::unique_ptr<sf::CircleShape>> 
     // Itero sulla lista
     for (auto it = lista.begin(); it != lista.end(); ++it) {
       float distanza = dist(triangolo.getPosition(), (*it)->getPosition());
-      
+
       if (distanza > percezione) {
-        continue; 
+        continue;
       } else {
         if (distanza < velocitalimite) {
             // Se mi trovo sull'oggetto, lo mangio e basta
@@ -221,7 +221,7 @@ sf::Vector2f Veichle::cercaVicino(std::vector<std::unique_ptr<sf::CircleShape>> 
         }
      }
 
-    
+
     if (distanzaMinima != 1e4) {
       sf::Vector2f posizioneVicino = (*closest)->getPosition();
       // Restituisco la forza di attrazione
@@ -236,18 +236,115 @@ sf::Vector2f Veichle::cercaVicino(std::vector<std::unique_ptr<sf::CircleShape>> 
 
 ```
 
-Questo metodo permette al veicolo di cercare l'elemento più vicino. Si devono passare la lista (cibo o veleno), il corrispettivo valore nutrizionale (negativo 
-se veleno) e il range di percezione. Cerco l'elemento a distanza minima che si trovi nel range di percezione. Se ho aggiornato la distanza minima almeno una 
-volta, allora cerco l'elemento più vicino. Se lista è vuota oppure il più vicino è fuori dalla visuale, restituisco il vettore nullo. Il metodo quindi restituisce sempre un vettore rappresentante una forza. Si noti che qui è possibile notare la necessità di usare memoria dinamina e puntatori: è necessario rimuovere dalla 
-lista dei cibi l'elemento mangiato quando viene mangiato e quindi in maniera dinamica. Per fare questo si è utilizzato un iteratore ed il metodo erase. 
-Lo stesso succederà nel main con i veicoli che muoiono. 
+Questo metodo permette al veicolo di cercare l'elemento più vicino. Si devono passare la lista (cibo o veleno), il corrispettivo valore nutrizionale (negativo
+se veleno) e il range di percezione. Cerco l'elemento a distanza minima che si trovi nel range di percezione. Se ho aggiornato la distanza minima almeno una
+volta, allora cerco l'elemento più vicino. Se lista è vuota oppure il più vicino è fuori dalla visuale, restituisco il vettore nullo. Il metodo quindi restituisce sempre un vettore rappresentante una forza. Si noti che qui è possibile notare la necessità di usare memoria dinamina e puntatori: è necessario rimuovere dalla
+lista dei cibi l'elemento mangiato quando viene mangiato e quindi in maniera dinamica. Per fare questo si è utilizzato un iteratore ed il metodo erase.
+Lo stesso succederà nel main con i veicoli che muoiono.
 
-Il metodo `vivi()` mette insieme le ricerche ai vari elementi ed è il metodo chiamato dal main quindi pubblico. `edge()` gestisce gli spigoli ed evita che i 
-veicoli vadano troppo fuori schermo, per organicità e fluidità, il ritorno dall'esterno dello schermo è fatto con lo stesso algoritmo di ricerca. 
+Il metodo `vivi()` mette insieme le ricerche ai vari elementi ed è il metodo chiamato dal main quindi pubblico. `edge()` gestisce gli spigoli ed evita che i
+veicoli vadano troppo fuori schermo, per organicità e fluidità, il ritorno dall'esterno dello schermo è fatto con lo stesso algoritmo di ricerca.
 
-Il metodo `clona()` restituisce un puntatore intelligente ad un nuovo veicolo, con DNA variato del 10% rispetto a quello che lo ha generato. 
+Il metodo `clona()` restituisce un puntatore intelligente ad un nuovo veicolo, con DNA variato del 10% rispetto a quello che lo ha generato.
 
 ### Main
+In questa parte del programma vengono gestite le finestre e il main loop di renderizzazione di SFML.
+
+#### Preparazione al main loop
+Per prima cosa vengono creati gli array di veicoli, cibi e veleni:
+
+```cpp
+std::vector<std::unique_ptr<Veichle>> veicoli;
+  for (int i = 0; i < veicoliIniziali; ++i) {
+    veicoli.push_back(std::unique_ptr<Veichle>{new Veichle(300, 300)});
+  }
+
+  std::vector<std::unique_ptr<sf::CircleShape>> cibi;
+  for (int i = 0; i < ciboIniziale; ++i) {
+    cibi.push_back(creaCibo(finestra, true));
+  }
+  std::vector<std::unique_ptr<sf::CircleShape>> veleno;
+  for (int i = 0; i < velenoIniziale; ++i) {
+    veleno.push_back(creaCibo(finestra, false));
+  }
+```
+Si noti che, come accennato prima, è necessario utilizzare i puntatori intelligenti per poter successivamente eliminare dinamicamente alcuni degli oggetti
+in base ad eventi runtime dell'applicazione.
+
+Il passo successivo è iniziare a misurare il tempo, per poter stampare a schermo info sull'ambiente. Per fare questo si è usato il supporto del modulo
+*chrono* della Standard Library.
+
+#### Main loop
+Terminate le operazioni preparatorie, è possibile iniziare il main loop `while (finestra.isOpen())` e per prima cosa viene aggiornato il tempo
+misurato ad ogni loop. (Anche il numero di loop viene contato).
+
+Importante notare lo statement `finestra.setFramerateLimit(60)` che blocca il framerate della GUI a 60 FPS. Senza di esso, infatti, l'hardware risultava
+molto stressato fino anche a produrre rumori non intenzionali.
+
+Guardiamo ora alla parte di gestione degli eventi della finestra.
+
+```cpp
+sf::Event ev;
+while (finestra.pollEvent(ev)) {
+  switch (ev.type) {
+  case sf::Event::Closed:
+    finestra.close();
+    break;
+
+  case sf::Event::KeyPressed:
+    // Se premo d sulla tastiera attivo o disattivo la debug mode dei veicoli
+    if (ev.key.code == sf::Keyboard::D) {
+      Veichle::debug = !Veichle::debug;
+    }
+    break;
+  }
+}
+```
+
+Si tratta di un ciclo while in cui viene switchato il tipo di evento. Si gestisce la possibilità di chiudere la finestra e sul toggle delle info di
+debug alla pressione del tasto D sulla tastiera.
+
+A questo punto dei loop, prima di effettuare le operazioni di disegno, vengono invocati i metodi della classe veicolo.
+
+```cpp
+for (auto i = veicoli.begin(); i != veicoli.end(); ++i) {
+  // l'oggetto *i rappresenta veicoli[i]
+  (*i)->edges(finestra);
+  (*i)->vivi(cibi, veleno);
+  (*i)->update();
+  (*i)->show(finestra);
+
+  // Probabilià di clonare
+  if (randomTools::randomFloat() < probClonare) {
+    i = veicoli.insert(i, (*i)->clona());
+    i++;
+  }
+
+  if ((*i)->dead()) {
+    // Se l'elemento i-simo è morto, lo elimino.
+    // Inoltre creo un cibo nella posizione
+    // i-- restituisce i a erase e poi decrementa. Così elimino l'elemento
+    // ma non salto niente
+    cibi.push_back(creaCibo(finestra, true, (*i)->getposition()));
+    veicoli.erase(i--);
+  }
+}
+```
+
+A causa della necessità di eliminare dal vettore i veicoli morti, per effettuare le operazioni su ogni veicolo si devono usare gli itaeratori. Solo in
+questo modo, infatti, è possibile eliminare il veicolo morto (tramite il metodo `std::vector<>.erase()`) e aggiungere il veicolo clonato tramite
+`std::vector<>.insert()`. L'operazione è delicata in quanto le azioni di eliminazione di un inserzione e rimozione da una lista tendenzialmente
+invalidano gli iteratori. In questo caso il problema è aggirato tramite lo statement `i = veicoli.insert(i, (*i)->clona());`. Il metodo `insert()`, infatti,
+restituisce un nuovo iteratore che viene riassegnato ad i prima di essere incrementato.
+
+Per quanto riguarda l'operazione di eliminazione, invece, il metodo `erase()` in sé non invalida l'iteratore, è però necessario fare attenzione a non
+saltare l'elemento successivo nel loop una volta effettuata l'eliminazione. Per questo si utilizza il postincremento. In particolare, lo statement
+`veicoli.erase(i--)` sarebbe equivalente a `veicoli.erase(i); --i`. Tutto il vettore scala dopo l'eliminazione e quindi si deve riportare i al valore
+precedente per non saltare nessun veicolo. È chiaro che questa operazione non è computazionalmente ottimale, eliminare un elemento da un'array list,
+infatti, è sempre dispendioso, soprattutto a causa della necessità di scalare gli altri elementi. Probabilmente sarebbe necessario utilizzare una
+struttura dati differente, probabilmente sarebbe più efficiente una linked list, comunque, la scelta è dovuta alla semplicità di scrittura del codice.
+
+L'ultima parte del main loop consiste semplicemente nel disegno di ogni oggetto all'interno della finestra tramite appositi cicli.
 
 
 ## Nota sulla compilazione
