@@ -28,7 +28,7 @@ sudo ./runContainer.sh
 
 *ATTENZIONE:* Il processo di building può richiedere parecchio tempo. Alla fine dovrebbe partire direttamente l'interfaccia grafica con la simulazione running e pienamente funzionante.
 
-L'immagine docker, comunque, deve essre buildata direttamente sul sistema in cui va eseguito il codice in quanto è necessario aggiungere i permessi per l'accesso alla grafica del sistema operativo host (co xauth).
+L'immagine docker, comunque, deve essre buildata direttamente sul sistema in cui va eseguito il codice in quanto è necessario aggiungere i permessi per l'accesso alla grafica del sistema operativo host (con xauth).
 
 Il seguente script produce il file xauth_list necessario ad avviare un'applicazione grafica dentro un docker, builda l'immagine e fa partire l'applicazione.
 
